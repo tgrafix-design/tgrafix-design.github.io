@@ -27,29 +27,18 @@
     <h1 style="text-transform:none; color:#fff; letter-spacing:normal;">
 		<a href="index.html" style="text-decoration: none; color:#fff; font-size: 1.25rem;">
 		<h1><img src="assets/img/logo.jpg" /><span style="color:#ffcc33; font:1.5em 'GreatVibes'; text-transform: none; letter-spacing: normal;">Work Gallery</span></h1><br />
-    <em style="color:#cccccc; font:.7em 'OpenSans'">Click thumbnails to view  or <a href="index.html" style="color:#ffffff; font-size:1.4em;">go back</a></em></h1>
+    <em style="color:#cccccc; font:.5em 'OpenSans'">Click thumbnails to view  or <a href="index.html" style="color:#ffffff; font-size:1.4em;">go back</a></em></h1>
   </header>
   
   <div id="content" class="container clearfix popup-gallery">
-    
     <div class="item">
-		<span class="BrowseSpin91"><span class="loadSpin"></span></span>
-		<a href="assets/img/cafegraphy.png" title="UIX Cafegraphy"><img src="assets/img/cafegraphy.png" onload="$('.BrowseSpin91').fadeOut('slow')" class="imaj" /></a>
+		<span class="BrowseSpin911"><span class="loadSpin"></span></span>
+		<a href="assets/img/cafegraphy.png" title="UIX Cafegraphy"><img src="assets/img/cafegraphy.png" onload="$('.BrowseSpin911').fadeOut('slow')" class="imaj" /></a>
     </div> 
 
     <div class="item">
-		<span class="BrowseSpin91"><span class="loadSpin"></span></span>
-		<a href="assets/img/offshoring.png" title="UIX Offshoring"><img src="assets/img/offshoring.png" onload="$('.BrowseSpin91').fadeOut('slow')" class="imaj" /></a>
-    </div> 
-
-    <div class="item">
-		<span class="BrowseSpin91"><span class="loadSpin"></span></span>
-		<a href="assets/img/ehrlich.png" title="UIX Ehrlich"><img src="assets/img/ehrlich.png" onload="$('.BrowseSpin91').fadeOut('slow')" class="imaj" /></a>
-    </div> 
-
-	<div class="item">
-		<span class="BrowseSpin91"><span class="loadSpin"></span></span>
-		<a href="assets/img/deveire.png" title="UIX Deveire"><img src="assets/img/deveire.png" onload="$('.BrowseSpin91').fadeOut('slow')" class="imaj" /></a>
+		<span class="BrowseSpin912"><span class="loadSpin"></span></span>
+		<a href="assets/img/offshoring.png" title="UIX Offshoring"><img src="assets/img/offshoring.png" onload="$('.BrowseSpin912').fadeOut('slow')" class="imaj" /></a>
     </div> 
 
     <div class="item">
@@ -82,6 +71,15 @@ AusAID & DILG Operations Manual on PRMF GPS Operations"><img src="assets/img/sin
       	<a href="assets/img/single-50.png" title="CD Icon & Label - CD Icon and Label Design"><img src="assets/img/single-50.png" onload="$('.BrowseSpin50').fadeOut('slow')" class="imaj" /></a>
     </div>
     
+    <div class="item">
+		<span class="BrowseSpin913"><span class="loadSpin"></span></span>
+		<a href="assets/img/ehrlich.png" title="UIX Ehrlich"><img src="assets/img/ehrlich.png" onload="$('.BrowseSpin913').fadeOut('slow')" class="imaj" /></a>
+    </div> 
+
+	<div class="item">
+		<span class="BrowseSpin914"><span class="loadSpin"></span></span>
+		<a href="assets/img/deveire.png" title="UIX Deveire"><img src="assets/img/deveire.png" onload="$('.BrowseSpin914').fadeOut('slow')" class="imaj" /></a>
+    </div> 
 
     <div class="item featured">
     	<span class="BrowseSpin12"><span class="loadSpin"></span></span>
@@ -185,15 +183,15 @@ $(document).ready(function() {
 </script>
  
   <script>
-	  $(document).ready(function() {
-		$('#content').masonry({
-			columnWidth: 160, //edit
-			itemSelector: '.item',
-			isFitWidth: false,
-			isAnimated: !Modernizr.csstransitions
-		}).imagesLoaded(function() {
-			$(this).masonry('reload');
-		});
+	  	$(document).ready(function() {
+			$('#content').masonry({
+				columnWidth: 320, //edit 160
+				itemSelector: '.item',
+				isFitWidth: true,
+				isAnimated: !Modernizr.csstransitions
+			}).imagesLoaded(function() {
+				$(this).masonry('reload');
+			});
 		});
 	</script>
 </body>
