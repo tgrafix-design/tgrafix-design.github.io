@@ -226,7 +226,8 @@ td { vertical-align: top; }
 	display: block; position: relative;
 	margin: 0 auto;
 	/* edit */
-	max-width:960px; width: auto; 
+	/* max-width:960px;  */
+   width: auto; 
 	-webkit-animation: rews 2s forwards; -moz-animation: rews 2s forwards; -animation: rews 2s forwards; }
 	
 
@@ -249,7 +250,8 @@ td { vertical-align: top; }
 /* edits */
 .featured { width: 310px; }
 
-.item img { width: 150px; height: auto; }
+/* image width*/
+.item img { width: 300px; height: auto; } 
 
 .featured img { width: 310px; height: auto; }
 
@@ -373,7 +375,9 @@ header:after {
   0% { opacity: 1; }
   50% { opacity: .6; }
   100% { opacity: 1; }
+}
 @keyframes blnk { 0% { opacity: .5; }
   0% { opacity: 1; }
   50% { opacity: .6; }
   100% { opacity: 1; }
+}

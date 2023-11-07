@@ -18,7 +18,8 @@
   z-index: 1043;
   position: fixed;
   outline: none !important;
-  -webkit-backface-visibility: hidden; }
+  -webkit-backface-visibility: hidden; 
+}
 
 .mfp-container {
   text-align: center;
@@ -352,12 +353,10 @@ img.mfp-img {
     padding-right: 6px; } }
 
 /* EDITS */
-img.mfp-img { /* 10px solid #000 */; background-color:none; opacity: 0;  -webkit-animation: blink 1s forwards; -moz-animation: blink 1s forwards; -animation: blink 1s forwards; }
+img.mfp-img { background-color:none; opacity: 0;  -webkit-animation: blink 1s forwards; -moz-animation: blink 1s forwards; -animation: blink 1s forwards; }
 div.mfp-title { padding-left: 10px; } 
 div.mfp-counter  { padding-right:10px;  }
 button.mfp-close { padding-right:12px!important;  }
-
- }
 
 @-webkit-keyframes blink { 0% { opacity: .1; }
   100% { opacity: 1; } }
