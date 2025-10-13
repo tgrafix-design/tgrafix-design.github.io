@@ -1,1 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Janitor - the MS Word HTML cleaner</title>
+</head>
+<body>
+    <style>
+        .head { width: 100%; background: #e8eaed; display: flex; justify-content: space-between; }
+        .foot { width: 100%; background: url(img/footbg.png) repeat-x; display: flex; justify-content: space-between; }
+    </style>
+    <div class="head">
+        <div class="headel"><img src="img/headel.png" alt=""></div>
+        <div class="header"><img src="img/header.png" alt=""></div>
+    </div>
 
+    <div class="container">
+        <div class="content">
+            <div class="tools">
+                <img src="img/uiTools1.png" width="130" alt="">
+                <img class="nopButton" src="img/notoptimize.png" width="34" alt="">
+                <img src="img/uiTools2.png" width="90" alt="">
+                <img class="opButton" src="img/optimize.png" width="34" alt="">
+            </div>
+            <div class="html-area" contenteditable="true"></div>
+            
+        </div>
+    </div>
+
+    <div class="foot">
+        <div class="fool"><img src="img/fool.png" alt=""></div>
+        <div class="foor"><img src="img/foor.png" alt=""></div>
+    </div>
+
+    <dialog id="dialog1">
+        <div class="xtools">
+            <img id="cu" class="btn" src="img/button-clean.png" alt="">
+            <img style="opacity:0;" src="img/button-spacer.png" alt="">
+            <img id="ul" class="btn" src="img/button-list.png" alt="">
+            <img id="ol9" class="btn" src="img/button-listb.png" alt="">
+            <img id="ola" class="btn" src="img/button-lista.png" alt="">
+            <img id="sty" class="btn" src="img/button-style.png" alt="">
+        </div>
+        <div class="code-area" contenteditable="true" >sfsdf</div>
+        <div class="buttons">
+            <button class="btn-close"><img src="img/button-cancel.png" alt=""></button>&nbsp;
+            <button class="btn-save"><img src="img/button-save.png" alt=""></button>
+        </div>
+        <button class="btn-xlose"><img src="img/button-xlose.png" alt=""></button>
+    </dialog>
+
+    <dialog id="dialog2">
+        <div class="header"><button class="btn-xlose"><img src="img/button-xlose.png" width="30" height="30" alt=""></button></div>
+        <div class="body">
+            <p>HTML has been successfully optimized!</p>
+            <button class="btn-close"><img src="img/button-close.png" alt=""></button>
+        </div>
+    </dialog>
+    
+<style>
+    *:focus, [contenteditable]:focus, #dialog1:focus, #dialog2:focus, button:focus, img:focus {  outline: 0px solid transparent!important; border: none!important; outline: none; background-color: #ffffff; }
+    .container { display: block; width: 1160px; height: 974px; margin: 0 auto; font-family: verdana, sans-serif; font-size: 11px; background: url(img/uiBG.png) no-repeat top center; overflow: hidden; }
+    .content { display: block; overflow:hidden; width: 860px; height: 316px; margin: 0 auto; margin-top: 600px; }
+    .html-area { display: block; width: 852px; height: 270px; overflow: auto; margin-top: 8px; margin-left:12px; overflow-y: scroll; font-size:12px; font-family: 'Segoe UI'; }
+    .code-area, .code-area p, .code-area br { display: block; font-size: 13px; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; width:864px; height:518px; 
+                margin-top: 65px; margin-left: 65px; overflow: auto; line-height:1.298em; overflow-y: scroll; }
+    .opButton { background: url(img/optimize.png) no-repeat; }
+    .opButton:hover, .nopButton:hover { mix-blend-mode: multiply;  }
+    #dialog1 { width: 947px; height: 654px; border-radius:8px; background: url(img/dialog.png) no-repeat; border: none; box-shadow: 0 16px 24px 0 rgba(56, 56, 56, .25); padding:0!important; }
+    #dialog1 button,  #dialog2 button { margin:0!important; padding:0!important; display:inline-block; background: transparent; border: none!important; outline: none; }
+    #dialog2 { width: 400px; height: 210px; border-radius:8px; background: white; border-radius: 12px; border: none; 
+        text-align: center; box-shadow: 0 16px 24px 0 rgba(56, 56, 56, .25); padding:0; overflow: hidden; }
+    #dialog2 p { font-family: 'Segoe UI'; font-size: 12pt; font-weight: 600; margin: 36px; color:#002569; }
+    #dialog1::backdrop, #dialog2::backdrop { background: rgba(0, 0, 0, 0.5); }
+    .buttons { position: absolute; bottom: 8px; right: 16px; }
+    .btn-xlose { position: absolute; top: 13px; right: 19px; }
+    .xtools { position: absolute; bottom: 16px; right: 250px; padding-left: 20px; border-left: 1px solid #cccccc; }
+    .xtools img { display: inline-block; vertical-align: middle; }
+    .xtools .btn:hover { mix-blend-mode: multiply;}
+    .xtools .btn, button:hover { cursor: pointer;  }
+    #dialog2 .header { width: 100%; height: 56px; border-top: 80px; background: #007DB7; }
+    #dialog2 .header button { border-radius: 50%; width: 30px; height: 30px; overflow: hidden; }
+</style>
+
+<script>
+    const cl=(p)=> console.log(p)
+    var opt=false
+    var htext=''
+    const htmlArea = document.querySelector(".html-area")
+    const codeArea = document.querySelector(".code-area")
+    const opButton = document.querySelector(".opButton")
+
+    //When Ready, initial set and total
+    window.addEventListener("DOMContentLoaded", function () {
+        cl(''+(+new Date)+': Coming In');
+
+        var observer = new MutationObserver(updateHtext);
+        observer.observe(htmlArea, {
+            childList: true, characterData: true, subtree: true
+        });
+
+        htmlArea.innerHTML=htext
+        codeArea.innerText=htext+'\n\n<Total Chars: '+htext.length+' />'
+    })
+
+    //When change reset style, total, breaks
+    const updateHtext = () => {
+        cl('changed!')
+        htext=htmlArea.innerHTML
+        htext=htext.replace(/<style[^>]*>[\s\S]*?<\/style[^>]*>/gs, '')  //remove <style> tag
+        htext=htext.replace(/<Total[^>]*>/gs, '')  //clean up <Total /> tag
+        htext=htext.replace(/\n/gs, ' ')  //clean up <Total /> tag
+        codeArea.innerText=htext+'\n\n<Total Chars: '+htext.length+' />'
+        cl(htext)
+    }
+
+    //Target elements
+    const dialog1=document.querySelector("#dialog1")
+    const dialog2=document.querySelector("#dialog2")
+    const showButton=document.querySelector(".nopButton")
+    const closeButtonx1=document.querySelector("#dialog1 > button")
+    const closeButtonx2=document.querySelector("#dialog2 .header button")
+    const  closeButton1=document.querySelector("#dialog1 .buttons .btn-close")
+    const  saveButton=document.querySelector("#dialog1 .buttons .btn-save")
+    const  closeButton2=document.querySelector("#dialog2 .body button")
+    closeButtonx1.addEventListener("click", ()=> { dialog1.close() })
+    closeButtonx2.addEventListener('click', ()=> { dialog2.close() })
+     closeButton1.addEventListener('click', ()=> { dialog1.close() })
+     closeButton2.addEventListener('click', ()=> { dialog2.close() })
+
+    //Save 
+    saveButton.addEventListener('click', ()=> { 
+        htext=codeArea.innerText += `${styl}`
+        cl('Saved!')
+        htmlArea.innerHTML=htext
+        dialog1.close() 
+    })
+
+    //Show code Tab, resets breaks and total
+    showButton.addEventListener("click", ()=> {
+        htext=codeArea.innerText
+        htext=htext.replace(/\n/gs, ' ') //replace word and enter
+        htext=htext.replace(/<\/p[^>]*>/gs, '<\/p>\n') //clean up <h2> tag
+        htext=htext.replace(/<\/h2[^>]*>/gs, '<\/h2>\n') //clean up <h2> `
+        htext=htext.replace(/<total[^>]*>[\s\S]*?<\/total[^>]*>/gs, '')  //remove <style> tag
+
+        //Code beautify
+        htext=htext.replace(/<ol([^>]*)>(.*?)<\/ol>/gs, '<ol$1>\n$2<\/ol>\n\n')
+        htext=htext.replace(/<ul([^>]*)>(.*?)<\/ul>/gs, '<ul$1>\n$2<\/ul>\n\n')
+        htext=htext.replace(/<\/li[^>]*>/gs, '<\/li>\n')
+
+        htext=htext.replace(/<Total[^>]*>/gs, '')  //clean up <Total /> tag
+        // cl('Clean Up!'); cl(htext)
+        
+        cl('opt '+opt)
+        if (opt) {
+            if (!codeArea.innerText.includes('optimized marker')) { htext+=styl; cl(opt) }
+        }
+
+        codeArea.innerText=htext+'\n\n<Total Chars: '+htext.length+' />'
+        dialog1.showModal()
+    })
+
+    //Optimize initial check
+    opButton.addEventListener('click', ()=> {
+        cl(htext.trim().length)
+        if (htext.trim().length > 0) { //not empty
+            resp = true
+            if (codeArea.innerText.includes('optimized marker')) { resp = confirm('This code is optimized. Reoptimize?') }
+            if (resp) {
+                opt=true
+                cl('opt: '+opt)
+                htext=removeStyles(codeArea.innerText)
+                codeArea.innerText = htext
+                htmlArea.innerHTML = htext
+                // cl('Optimize this!'); cl(htmlArea.innerText)
+                dialog2.showModal()
+            }
+        }
+    });
+
+    //Optimize
+    const removeStyles=(htmlString)=> {
+        var btotal=htmlString.length
+        tempText = htmlString
+
+        tempText = tempText.replace(/<style[^>]*>[\s\S]*?<\/style[^>]*>/gs, '')  //remove <style> tag
+        tempText = tempText.replace(/<Total[^>]*>/gs, '')  //clean up <Total /> tag
+        tempText = tempText.replace(/ style='[^']*'/gs, '')  //remove style single quote
+        tempText = tempText.replace(/ style="[^"]*"/gs, '')  //remove style double quote
+        tempText = tempText.replace(/ style='[^']*'/gs, '')  //remove style single quote
+        tempText = tempText.replace(/ v:shapes='[^"]*'/gs, '')  //remove v:shapes quote
+
+        tempText = tempText.replace(/[a-zA-Z]\n/gs, ' ') //replace word and enter
+
+        tempText = tempText.replace(/<![^>]*>/gs, '')  //remove <!--> tag
+        tempText = tempText.replace(/<o:[^>]*>[\s\S]*?<\/o:[^>]*>/gs, '')  //remove <o:> tag
+        tempText = tempText.replace(/<v:[^>]*>[\s\S]*?<\/v:[^>]*>/gs, '')  //remove <v:> tag
+        tempText = tempText.replace(/<body[^>]*>/gs, '<body>\r\n')  //clean up <body> tag
+        tempText = tempText.replace(/<span[^>]*>/gs, '')  //clean up <span> tag
+        tempText = tempText.replace(/<\/span>/gs, '')
+        tempText = tempText.replace(/<h2[^>]*>/gs, '<h2>') //clean up <h2> tag
+        tempText = tempText.replace(/<\/h2[^>]*>/gs, '<\/h2>\r\n') //clean up <h2> tag
+
+        tempText = tempText.replace(/<p[^>]*>/gs, '<p>') //clean up <p> tag
+        tempText = tempText.replace(/<\/p[^>]*>/gs, '<\/p>\r\n') //clean up <p> tag
+        tempText = tempText.replace(/<a/gs, '<a ') //cleanup <a>
+        tempText = tempText.replace(/<b>/gs, '<strong>') //replace <b> with <strong>
+        tempText = tempText.replace(/<\/b>/gs, '<\/strong>')
+        tempText = tempText.replace(/<strong><\/strong>/gs, '') 
+        tempText = tempText.replace(/<\/strong><strong>/gs, '') 
+
+        tempText = tempText.replace(/<i>/gs, '<em>') //replace <i> with <em>
+        tempText = tempText.replace(/<\/i>/gs, '<\/em>')
+        tempText = tempText.replace(/<em><\/em>/gs, '')
+        tempText = tempText.replace(/<\/em><em>/gs, '')
+        
+        // tempText = tempText.replace(/.&nbsp;&nbsp;&nbsp;&nbsp;/gs, '. ') //replace space
+        // tempText = tempText.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/gs, '&bull;') //replace space
+        // tempText = tempText.replace(/&bull;&nbsp;/gs, '&bull; ')
+        // tempText = tempText.replace(/&nbsp; /gs, ' ')  //remove double space
+        // tempText = tempText.replace(/&nbsp;/gs, ' ')
+        tempText += `${styl}`
+
+        // var atotal=tempText.length
+        // tempText += `\n\n
+        //     <Total Chars Before: ${btotal} \/>
+        //     <Total Chars After: ${atotal} \/>
+        // `
+        return tempText
+    }
+
+    var rawText='';
+
+    //Add styles
+    var styButt=document.getElementById('sty')
+    styButt.addEventListener('click', ()=> {
+        if (!codeArea.innerText.includes('optimized marker')) { 
+            rawText=codeArea.innerText.trim()
+            rawText=rawText.replace(/\n\n/gs, '\n')
+            rawText=rawText.replace(/<Total ([^>]*)>/gs, styl+'\n\n<Total $1>' )
+            codeArea.innerText=rawText
+        }
+    })
+
+    //Clean Up
+    var cuButt=document.getElementById('cu')
+    cuButt.addEventListener('click', ()=> {
+        rawText=codeArea.innerText
+        cl(codeArea)
+        rawText = rawText.replace(/<p> <\/p>/gs, '') //clean up <h2> tag
+        rawText = rawText.replace(/<p>&nbsp;<\/p>/gs, '') //clean up <h2> tag
+        rawText = rawText.replace(/&nbsp;/gs, '')
+        rawText=rawText.replace(/\n\n/gs, '\n') //remove empty lines
+        codeArea.innerText=rawText
+    })
+
+    //Unordered List
+    var ulButt=document.getElementById('ul')
+    ulButt.addEventListener('click', ()=> {
+        const selection = window.getSelection();
+        rawText = selection.toString();
+        if (rawText.length>0) {
+            var ulText = rawText
+            var tempText=''
+            ulText=ulText.replace(/<p>([a-zA-Z])\./gs, '<p>')
+            ulText=ulText.replace(/&nbsp;/gs, '')
+            ulText=ulText.replace(/<p> /gs, '<p>')
+            ulText=ulText.replace(/<p([^>]*)>(.*?)<\/p>/gs, '<li>$2<\/li>' )
+            ulText=`<ul>\n${ulText}\n</ul>\n`
+            ulText=ulText.replace(/<li><\/li>/gs, '')
+            ulText=ulText.replace(/\n\n/gs, '\n')
+
+            tempText=codeArea.innerText.replace(rawText, ulText)
+            cl(tempText)
+            codeArea.innerText=tempText
+        }
+    });
+
+    //Ordered List 9
+    var ol9Butt=document.getElementById('ol9')
+    ol9Butt.addEventListener('click', ()=> {
+        const selection = window.getSelection();
+        rawText = selection.toString();
+        if (rawText.length>0) {
+            var ulText = rawText
+            var tempText=''
+            ulText=ulText.replace(/<p>([a-zA-Z])\./gs, '<p>')
+            ulText=ulText.replace(/&nbsp;/gs, '')
+            ulText=ulText.replace(/<p> /gs, '<p>')
+            ulText=ulText.replace(/<p([^>]*)>(.*?)<\/p>/gs, '<li>$2<\/li>' )
+            ulText=`<ol>\n${ulText}\n</ol>\n`
+            ulText=ulText.replace(/<li><\/li>/gs, '')
+            ulText=ulText.replace(/\n\n/gs, '\n')
+
+            tempText=codeArea.innerText.replace(rawText, ulText)
+            cl(tempText)
+            codeArea.innerText=tempText
+        }
+    });
+
+    //Ordered List A
+    var olaButt=document.getElementById('ola')
+    olaButt.addEventListener('click', ()=> {
+        const selection = window.getSelection();
+        rawText = selection.toString();
+        if (rawText.length>0) {
+            var ulText = rawText
+            var tempText=''
+            ulText=ulText.replace(/<p>([a-zA-Z])\./gs, '<p>')
+            ulText=ulText.replace(/&nbsp;/gs, '')
+            ulText=ulText.replace(/<p> /gs, '<p>')
+            ulText=ulText.replace(/<p([^>]*)>(.*?)<\/p>/gs, '<li>$2<\/li>' )
+            ulText=`<ol type='a'>\n${ulText}\n</ol>\n`
+            ulText=ulText.replace(/<li><\/li>/gs, '')
+            ulText=ulText.replace(/\n\n/gs, '\n')
+
+            tempText=codeArea.innerText.replace(rawText, ulText)
+            cl(tempText)
+            codeArea.innerText=tempText
+        }
+    });
+
+    var styl = `\n
+    <style>
+        \t\t\t h2:first-child { margin-top: 0; }
+        div, h2, p, li, tr, td { font-family: 'Segoe UI'; font-size: 12pt; color:#000000; }
+        h2 { font-size: 14pt; color: #002569; font-weight: bold; }
+        table, th, td { border: 1px solid black; }
+        td { margin: 6px; }
+        a, a:hover { color: #007db7; text-decoration: underline; }
+        /* optimized marker */
+    </style>`
+</script>
+</body>
+</html>
