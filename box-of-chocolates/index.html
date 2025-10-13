@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite JS</title>
+    <!-- Reference: https://codehs.com/tutorial/andy/Programming_Sprites_in_JavaScript -->
+</head>
+<body>
+<style>
+    .loader {
+        width: 300px;
+        height: 20px;
+        border-radius: 20px;
+        background:
+        linear-gradient(#633424 0 0) 0/0% no-repeat #cccccc;
+        animation: l2 2s forwards steps(10);
+    }
+    @keyframes l2 {
+        100% {background-size:110%}
+    }
+    .topdrop {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f6eddb;
+        transition: opacity 0.5s ease-in-out;
+        opacity: 1;
+        width: 100%;
+        height: 100vh;
+        cursor: pointer;
+        pointer-events: none;
+        text-align: center;
+        top: 0;
+    }
+    .load-wrapper { transition: opacity 1s linear; }
+    .content { position: relative; width: 430px; height:390px; }
+    .topdrop, .quote-1, .quote-2, .quote-3,  .quote-4, .click-1, .click-2 { transition: opacity 2s linear;  }
+    .quote-1, .quote-2, .quote-3, .quote-4 { position: absolute; left:0; }
+    .click-1, .click-2 { position: absolute; right:36px; bottom: 0; opacity: 0; }
+    .click-2 { bottom: 90px; }
+    .quote-1, .quote-2, .quote-3 { background-color: #f6eddc; }
+    .quote-4 { opacity: 0; }
+</style>
+
+    <div class="container">
+        <div class="content">
+            <img class="quote-4" src="img/text-left1.png" > 
+            <img class="quote-3" src="img/text-left12.png" >
+            <img class="quote-2" src="img/text-left11.png" >
+            <img class="quote-1" src="img/text-left10.png" >
+            <img class="click-1" src="img/text-click1.png" >
+            <img class="click-2" src="img/text-click2.png" >
+        </div>
+
+        <div class="nav-wrapper">
+            <div class="bg-images">
+                <img class="bg-1" src="img/bg-closebox-open.png" > 
+                <img class="bg-2" src="img/bg-closebox-45.png" > 
+                <img class="bg-3" src="img/bg-closebox.png" > 
+            </div>
+            <div class="navigator">
+                <div><img src="img/choco/a1h.png" data-page="choco-1"></div>
+                <div><img src="img/choco/a2h.png" data-page="choco-2"></div>
+                <div><img src="img/choco/a3h.png" data-page="choco-3"></div>
+                <div><img src="img/choco/b1h.png" data-page="choco-4"></div>
+                <div><img src="img/choco/b2h.png" data-page="choco-5"></div>
+                <div><img src="img/choco/b3h.png" data-page="choco-6"></div>
+                <div><img src="img/choco/c1h.png" data-page="choco-7"></div>
+                <div><img src="img/choco/c2h.png" data-page="choco-8"></div>
+                <div><img src="img/choco/c3h.png" data-page="choco-9"></div>
+                <div><img src="img/choco/d1h.png" data-page="choco-10"></div>
+                <div><img src="img/choco/d2h.png" data-page="choco-11"></div>
+                <div><img src="img/choco/d3h.png" data-page="choco-12"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover-open"></div>
+
+    <div class="choco-intro"><div class="intro"></div></div>
+    
+    <div class="topdrop"><div class="load-wrapper"><div class="loader"></div><p class="loadtext"><img class="loadertext" src="img/loading.png" alt=""></p></div></div>
+
+    <dialog id="iframeDialog" class="wrapper">
+        <iframe src="choco-1.html" title="description"></iframe>
+        <div class="close-btn"><img src="img/close.png" alt=""></div>
+    </dialog>
+
+    <dialog id="outtro">
+        <div class="scontent">
+            <h2 style="margin:200px 0;">Kalas</h2>
+            <p>About the App</p>
+            <p>The Chocolate Box was designed and developed by the author to give the usre a fun, smooth, and frustration-free way to view the awesome 360° photos taken with a 360 camera. Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices, i thought—why not develop my own viewer? Now you can spin, zoom, and explore every angle of our team adventures anytime with this app.</p>
+
+            <p style="margin:200px 0 0 0;">About the Author</p>
+            <p>Joseph Tuquib <br/>
+                &bull;&nbsp;&nbsp;<em>Graphic Design Trainor<br/>
+                &bull;&nbsp;&nbsp;Art Director & Fullstack Web Engineer<br />
+            https://tgrafix-design.github.io/<br />
+            https://tripcompanion-ph.github.io/</em></p>
+
+            <button style="margin:0 0 200px 0;" onclick="document.getElementById('myModal').close()">Watch Again?</button>
+        </div>
+     </dialog>
+<style>
+    body { margin:0; padding: 0;}
+    .closebox { width: 100%; display:block; }
+    .container { position: relative; display: flex;  height: 100vh; width: 100vw; justify-content: center; align-items: center;
+        background-color:#f6eddc; min-width:1100px; transition: background-position .5s cubic-bezier(0.68, -0.55, 0.265, 1.55), filter ease-out 2s; 
+        background-repeat: no-repeat; }
+    .cover-open { display: none; position: absolute; width:100%; height:100vh; top:0;  background: url(img/chopen.png) no-repeat center center; }
+    
+    dialog { position: relative; padding: 0; border: none; border-radius: 16px;  width: 5%; height: 5%; 
+        overflow: hidden; box-shadow: 0px 0px 24px 0px #cccccc; transition: all .5s ease-in;  will-change: transform, opacity; }
+    iframe { width: 100%; height: 100%; border-radius: 16px; overflow: hidden;  }
+    .close-btn { position: absolute; padding: 10px; top:0; left: 0; background-color: rgba(103, 115, 131, 0.6); }
+    .close-btn img { border: 2px solid #ffffff; padding: 6px; border-radius: 10px; width: 12px; height: 12px; }
+    .close-btn:hover, .navigator li:hover { cursor: pointer; }
+
+    .nav-wrapper { max-width:430px; width: 100%; aspect-ratio: 1 / 1; pointer-events: none; translate: 1000px;
+        transform: rotate(180deg); transition: translate 2s ease-out, transform 2s ease-in-out; 
+        /* background-image: url(img/bg-closebox.png); */ background-repeat: no-repeat; background-position: center; background-size: cover;  
+        display: flex; justify-content: center; justify-items: center;  }
+    .bg-images { display: block; cursor: pointer; margin-top: -120px; }
+    .bg-images img { position: absolute; max-width:430px; width: 100%; background-color: #f6eddc; transition: opacity 1s ease-in-out;  }
+    .navigator { display: flex; flex-wrap: wrap; align-content: flex-start; align-self: center;  max-width:330px; width: 100%; aspect-ratio: 1 / 1; }
+    .navigator div { display: none; width: 33%; max-width:110px; align-self: center; background-repeat: no-repeat; background-position: center; background-size: cover; }
+    .navigator img { display: block; max-width:110px; opacity: 0; transition: opacity 0.25s ease-in-out; }
+    .navigator img:hover { cursor: pointer; }
+
+    .choco-intro { position: absolute; display: none; top:0; left:0; height: 100vh; width: 100vw;  min-width:1100px; }
+    .intro { width: 500px; height: 533px; position: relative; animation: playh 1s steps(5) forwards; 
+        margin-left:46%; transform: translateY(25%); }
+
+    #outtro { width: 50%; height: 300px; max-width: 400px; color: #ffffff; background: transparent; border:1px solid rgba(255, 255, 255, .8);
+    box-shadow: none;  overflow: hidden; position: relative; border: 1px solid #ccc; padding: 24px; border-radius: 8px; }  
+    #outtro::backdrop { background-color:rgba(0,0,0,.85); }
+
+    .scontent { position: absolute; width: 85%;  bottom:0; opacity:0; 
+                animation: scrollUp 40s linear forwards; animation-delay: 2s; animation-play-state: paused; }
+
+    @keyframes scrollUp { 0% { top:0; } 100% { top:-600px; } }
+    @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
+</style>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/gsap/gsap.min.js" defer></script>
+<script src="js/gsap/CustomEase.min.js" defer></script>
+<script src="js/howler.min.js" defer></script>
+
+<script>
+    var clickount=0
+
+    const loadertext = document.querySelector(".loadertext")
+    const click1 = document.querySelector(".click-1")
+    const click2 = document.querySelector(".click-2")
+    const container = document.querySelector(".container")
+    const iframe = document.querySelector("iframe")
+    const iframeDialog = document.querySelector("#iframeDialog")
+    const close = document.querySelector(".close-btn")
+    const choc1 = document.querySelector(".navigator ul li:nth-child(1)")
+    const navWrapper = document.querySelector(".nav-wrapper")
+    const listItems = document.querySelectorAll('.navigator div')
+    const chocoIntro = document.querySelector('.choco-intro')
+    const topDrop = document.querySelector(".topdrop")
+    const loader = document.querySelector(".loader")
+    const loadWrapper = document.querySelector(".load-wrapper")
+    const quote1 = document.querySelector(".quote-1")
+    const quote2 = document.querySelector(".quote-2")
+    const quote3 = document.querySelector(".quote-3")
+    const quote4 = document.querySelector(".quote-4")
+    const coverOpen = document.querySelector(".cover-open")
+    const outtro = document.querySelector("#outtro")
+    const scontent = document.querySelector(".scontent")
+
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        console.log('Complete!')
+    } else {
+        console.log('Loaded!')
+        quote1.style.opacity="0" 
+        setTimeout(()=>{
+            loadertext.src="img/loaded.png"
+            setTimeout(()=>{
+                loadWrapper.style.opacity="0"
+                navWrapper.style.translate="0"
+                navWrapper.style.transform="rotate(0)"
+            }, 1000)
+            setTimeout(()=>{ 
+                topDrop.style.opacity="0"
+                setTimeout(()=>{ 
+                    topDrop.style.display="none" 
+                    quote1.style.opacity="1" 
+                        setTimeout(()=>{ 
+                            quote1.style.opacity="0" 
+                            setTimeout(()=>{ 
+                                quote2.style.opacity="0"
+                                setTimeout(()=>{  
+                                    click1.style.opacity="1"
+                                    navWrapper.style.pointerEvents="auto"
+                                }, 3000)  
+                            }, 3000) 
+                        }, 3000)  
+                }, 1000)  
+            }, 2000)    
+        }, 3000)
+    }
+
+//Close the intro Box
+    navWrapper.style.cursor="pointer"
+    navWrapper.addEventListener('click', () => {
+        container.style.backgroundPosition="400px center"
+    
+        const bgImages = document.querySelector(".bg-images")
+        const cboxBG1 = document.querySelector(".bg-1")
+        const cboxBG2 = document.querySelector(".bg-2")
+        const cboxBG3 = document.querySelector(".bg-3")
+
+        setTimeout(()=>{ 
+                cboxBG3.style.opacity="0"
+                setTimeout(()=>{  
+                    cboxBG2.style.opacity="0"
+                        setTimeout(()=>{ 
+                            bgImages.style.display="none"
+                            coverOpen.style.display="none"
+                            navWrapper.style.opacity="0"
+                            coverOpen.style.display="block"
+                            navWrapper.style.backgroundImage="url(img/bg-chocolates.png)"
+                            setTimeout(()=>{ 
+                            coverOpen.style.display="none"
+                                container.style.background="#f6eddc url(img/chover.png) no-repeat 0 center"
+                            }, 1000) 
+                            setTimeout(()=>{ navWrapper.style.opacity="1" }, 400) 
+                            listItems.forEach(item => { item.style.display="block" })
+                            navWrapper.style.cursor="auto"
+                            quote3.style.display="none"
+                            click1.style.display="none"
+                            
+                            setTimeout(()=>{ 
+                                quote4.style.opacity="1"
+                                setTimeout(()=>{ click2.style.opacity="1" }, 1000)
+
+                                var sound = new Howl({ src: ['audio/riff.wav'], loop: true, html5: true, autoplay: true })
+                            }, 1000) 
+                        }, 1000) 
+                }, 1000) 
+        }, 1000) 
+
+    //Define chocolate action with sound manipulation
+    // setTimeout(() => { 
+        
+    // }, 3000)
+    var notplayed=true
+    
+    listItems.forEach(item => {
+        var url = item.firstElementChild.src
+        var bgname = url.match(/([^\/]+)(?=\.\w+$)/)[0]
+        bgname = bgname.slice(0, -1) + ".png"
+        console.log(bgname)
+        item.style.backgroundImage=`url(img/choco/${bgname})`
+        
+        item.addEventListener('click', el => {
+            clickount++
+            console.log(clickount)
+
+            var soundFull = new Howl({ src: ['audio/forrestGump.wav'], loop: true, html5: true, autoplay: false })
+
+            if (notplayed) {
+                setTimeout(() => { sound.stop() }, 1000)
+                soundFull.play()
+                notplayed=false
+            }
+
+            url = el.target.dataset.page
+            iframe.src=url+".html"
+            container.style.filter="blur(12px)"
+            chocoIntro.style.opacity="1"
+            chocoIntro.firstElementChild.style.backgroundImage=`url(img/animate/${url}-animate.png)`
+            chocoIntro.style.display="block"
+            iframeDialog.style.width="50%"
+            iframeDialog.style.height="50%"
+            setTimeout(() => { 
+                chocoIntro.style.display="none"
+                iframeDialog.showModal()
+            }, 1500)
+        })
+    })
+
+
+    }, {once: true})  
+//end the intro Box ------------------------>
+
+    close.addEventListener('click', () => {
+        iframeDialog.style.width="5%"
+        iframeDialog.style.height="5%"
+        iframeDialog.close()
+        container.style.filter="blur(0)"
+        chocoIntro.style.display="none"
+
+        if (clickount==2)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png)"; container.style.backgroundPosition="0 center, bottom right"; }
+        if (clickount==6)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left"; }
+        if (clickount==11)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png), url(img/choc-crumbs-top-right.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left, top right"; }
+        if (clickount==1) { 
+            setTimeout(() => { 
+                console.log('There goes the last chocolate!')
+                outtro.showModal()
+                setTimeout(() => { 
+                    scontent.style.animationPlayState="running"
+                    scontent.style.opacity="1"
+                }, 4000)
+            }, 1500)
+        }
+    })
+
+    const listImg = document.querySelectorAll('.navigator div img');
+    listItems.forEach(item => {
+        item.addEventListener('mouseover', el => {
+            el.target.style.opacity=1
+        })
+        item.addEventListener('mouseout', el => {
+            el.target.style.opacity=0
+        })
+        item.addEventListener('click', el => {
+            el.target.style.opacity=0
+            el.target.parentNode.style.opacity=0
+            el.target.parentNode.style.pointerEvents="none"
+        })
+    })
+</script>
+
+</body>
+</html>
