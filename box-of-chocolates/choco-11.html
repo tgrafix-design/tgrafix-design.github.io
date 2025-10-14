@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sample Tour | Elevator</title>
+<meta name="description" content="A sample 360° tour created by the Marzipano Tool." />
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- Reference: https://groups.google.com/g/marzipano/c/QqPEN1yfb3g?pli=1  -->
+
+</head>
+<body class="multiple-scenes view-control-buttons">
+
+    <div id="pano"></div>
+
+    <div id="sceneList">
+      <ul class="scenes">
+        <!-- 1.  ----------------------------------------------------------------->
+        <a href="javascript:void(0)" class="scene current" data-id="choco11-elevator2">
+          <li class="text">Elevator Here!</li>
+        </a>
+      </ul>
+    </div>
+
+    <div id="titleBar">
+      <h1 class="sceneName"></h1>
+    </div>
+
+    <a href="javascript:void(0)" id="autorotateToggle">
+      <img class="icon off" src="img/play.png">
+      <img class="icon on" src="img/pause.png">
+    </a>
+
+    <a href="javascript:void(0)" id="fullscreenToggle">
+      <img class="icon off" src="img/fullscreen.png">
+      <img class="icon on" src="img/windowed.png">
+    </a>
+
+<style>
+  #mainContainer { width: 90%; height: 90%; display: block; margin: auto; }
+  .multiple-scenes #titleBar { left: 0!important; }
+  #sceneList, #sceneListToggle,.viewControls { display: none; }
+</style>
+
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png">
+  <img class="icon on" src="img/collapse.png">
+</a>
+
+  <div class="viewControls">
+    <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+      <img class="icon" src="img/up.png">
+    </a>
+    <a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+      <img class="icon" src="img/down.png">
+    </a>
+    <a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+      <img class="icon" src="img/left.png">
+    </a>
+    <a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+      <img class="icon" src="img/right.png">
+    </a>
+    <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+      <img class="icon" src="img/plus.png">
+    </a>
+    <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+      <img class="icon" src="img/minus.png">
+    </a>
+  </div>
+
+<script>
+var interval = setInterval(()=> {
+      if(document.readyState === 'complete') { 
+          clearInterval(interval);
+          console.log(''+(+new Date)+': Polling (#1 setInterval)')
+      } 
+  }, 0);
+
+  var data = {
+  "scenes": [
+    {
+      "id": "choco11-elevator2",
+      "name": "Click-drag on image to rotate 360 view...",
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        }
+      ],
+      "faceSize": 4096,
+      "initialViewParameters": {
+        "pitch": .8,
+        "yaw": -8,
+        "fov": 1.5707963267948966
+      },
+      "linkHotspots": [ ],
+      "infoHotspots": [
+        {
+          "yaw": -0.00038049728702915786,
+          "pitch": 0.014985751462495145,
+          "title": "The Elevator - 2",
+          "text": "One of my favorite chocolates. /n Great things in business are never done by one person. They're done by a team of people"
+        }
+      ]
+    }
+  ],
+  "name": "Sample Tour",
+  "settings": {
+    "mouseViewMode": "drag",
+    "autorotateEnabled": true,
+    "fullscreenButton": true,
+    "viewControlButtons": true
+  }
+};
+</script>
+
+<script src="js/screenfull.js" ></script>
+<script src="js/bowser.js" ></script>
+<script src="js/marzipano.js" ></script>
+<script src="js/index.js"></script>
+
+<style>
+  #titleBar .sceneName { background-color: rgba(0, 0, 0, .2); }
+</style>
+</body>
+</html>
