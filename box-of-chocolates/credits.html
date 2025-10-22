@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits module</title>
+    <link rel="stylesheet" href="css/fonts.css">
+</head>
+<body>
+
+<dialog class="ender">
+    <div id="outtro">
+        <div class="scontent">
+            <h2 style="margin-top:350px; margin-bottom: 360px;">Kalas</h2>
+            <p><strong>About the App</strong></p>
+            <p style="margin-bottom: 360px;">The Chocolate Box was designed and developed by the author to give the user a fun, smooth, frustration-free and exciting way to view the awesome images taken by a 360° camera.<br /><br />Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices, this challenged the author to develop this viewer.<br /><br />Now you can spin, zoom, and explore every angle of 360° shots anytime with this app.<br /><br />
+            For other developers, this is a demonstration of Javascript image manipulation using CubeMap and audio control.</p>
+
+            <p><strong>About the Author</strong></p>
+            <p style="margin-bottom: 360px;"><strong>Joseph Tuquib</strong> <br /><em>Graphic & Web Design Trainor, Art Director & Fullstack Web Engineer<br />
+            <br />https://tgrafix-design.github.io/<br />
+            https://tripcompanion-ph.github.io/<br />
+            https://tgrafix-design.github.io/aerobics/
+            https://tgrafix-design.github.io/code-janitor/</em></p>
+
+            <a class="credit-button" href="http://127.0.0.1:5501/credits.html">Watch Again?</a>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+</dialog>
+
+<style>
+    .ender { padding: 24px; border-radius: 8px; width: 50%; max-width: 400px; overflow: hidden; background: transparent; border:1px solid rgba(255, 255, 255, .8); background-color:rgba(0,0,0,.85); }
+    #outtro { position: relative; font-size: 14px; font-family: 'GothamRounded'; line-height: 1.5; height: 300px; 
+    color: #ffffff; background: transparent; 
+    box-shadow: none;  overflow: hidden; }  
+    #outtro::backdrop { background-color:rgba(0,0,0,.85); }
+
+    #outtro strong { font-size: larger; }
+    .scontent { position: absolute; width: 100%; bottom:0; opacity:1; 
+                animation: scrollUp 80s linear forwards; animation-delay: 2s; animation-play-state: paused; }
+
+    @keyframes scrollUp { 0% { top:0; } 100% { top:-1800px; } }
+    @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
+    .credit-button { width: 120px; display: block; padding: 6px 30px; background: #fff; color: #000000; margin-bottom: 400px; 
+            text-decoration: none; font-weight:700; border-radius: 16px; }
+</style>
+<script>
+    const outtro = document.querySelector(".ender")
+    const scontent = document.querySelector(".scontent")
+
+    outtro.showModal()
+    setTimeout(() => { 
+        scontent.style.animationPlayState="running"
+        scontent.style.opacity="1"
+    }, 10)
+</script>
+
+</body>
+</html>
