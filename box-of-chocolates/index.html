@@ -72,7 +72,8 @@
             <div class="bg-images">
                 <img class="bg-1" src="img/bg-closebox-open.png" > 
                 <img class="bg-2" src="img/bg-closebox-45.png" > 
-                <img class="bg-3" src="img/bg-closebox.png" > 
+                <img class="bg-3" src="img/bg-closebox.png" >
+                <img class="bg-4" src="img/bg-closebox-arrow.png" > 
             </div>
             <div class="navigator">
                 <div><img src="img/choco/a1h.png" data-page="choco-1"></div>
@@ -95,7 +96,8 @@
 
     <div class="choco-intro"><div class="intro"></div></div>
     
-    <div class="topdrop"><div class="load-wrapper"><div class="loader"></div><p class="loadtext"><img class="loadertext" src="img/loading.png" alt=""></p></div></div>
+    <div class="topdrop"><div class="load-wrapper"><div class="loader"></div><p class="loadtext"><img class="loadertext" src="img/loading.png" alt="">
+    <br /><br /><em>*Best viewed in Desktop Chrome with audio</em></p></div></div>
 
     <dialog id="iframeDialog" class="wrapper">
         <iframe src="" title="description"></iframe>
@@ -156,22 +158,25 @@
     .choco-intro { position: absolute; display: none; top:0; left:0; height: 100vh; width: 100vw;  min-width:1100px; }
     .intro { width: 500px; height: 533px; position: relative; animation: playh 1s steps(5) forwards; 
         margin-left:46%; transform: translateY(25%); }
-
-    .ender { height: 348px; padding: 24px; border-radius: 8px; width: 50%; max-width: 400px; overflow: hidden; 
+:root {
+     --bg-color: rgba(0,0,0,.8)
+}
+    dialog.ender { height: 348px; padding: 24px; border-radius: 8px; width: 50%; max-width: 400px; overflow: hidden; 
         box-shadow: none; background-color:transparent; border:1px solid rgba(255, 255, 255, .1); }
+    dialog.ender::backdrop { background-color: var(--bg-color); backdrop-filter: blur(5px); transition: background-color 1s ease-in; }
     #outtro { position: relative; font-size: 14px; font-family: 'GothamRounded'; line-height: 1.5; height: 348px; 
     color: #ffffff; background: transparent; 
     box-shadow: none;  overflow: hidden; }  
-    dialog.ender::backdrop { background-color:rgba(0,0,0,.85)!important; backdrop-filter: blur(5px); }
 
     #outtro strong { font-size: larger; }
-    .scontent { position: absolute; width: 100%; bottom:0; opacity:1; 
+    .scontent { position: absolute; width: 100%; bottom:0; 
                 animation: scrollUp 80s linear forwards; animation-delay: 2s; animation-play-state: paused; }
 
     @keyframes scrollUp { 0% { top:0; } 100% { top:-1900px; } }
     @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
     .credit-button { width: 120px; display: block; padding: 6px 30px; background: #fff; color: #000000; margin-bottom: 40px; 
             text-decoration: none; font-weight:700; border-radius: 16px; }
+    .bg-4 { opacity:0; }
 </style>
 
 <script src="js/jquery.min.js"></script>
@@ -204,6 +209,12 @@
     const outtro = document.querySelector(".ender")
     const scontent = document.querySelector(".scontent")
 
+    const bgImages = document.querySelector(".bg-images")
+    const cboxBG1 = document.querySelector(".bg-1")
+    const cboxBG2 = document.querySelector(".bg-2")
+    const cboxBG3 = document.querySelector(".bg-3")
+    const cboxBG4 = document.querySelector(".bg-4")
+
     if (document.readyState === "complete" || document.readyState === "interactive") {
         console.log('Complete!')
     } else {
@@ -226,12 +237,14 @@
                             setTimeout(()=>{ 
                                 quote2.style.opacity="0"
                                 setTimeout(()=>{  
+                                    console.log('Text open box!')
                                     click1.style.opacity="1"
+                                    cboxBG4.style.opacity="1"
                                     navWrapper.style.pointerEvents="auto"
                                 }, 3000)  
                             }, 3000) 
                         }, 3000)  
-                }, 1000)  
+                }, 3000)  
             }, 2000)    
         }, 3000)
     }
@@ -239,12 +252,10 @@
 //Close the intro Box
     navWrapper.style.cursor="pointer"
     navWrapper.addEventListener('click', () => {
+        console.log('Box Close Intro Clicked!')
         container.style.backgroundPosition="400px center"
-    
-        const bgImages = document.querySelector(".bg-images")
-        const cboxBG1 = document.querySelector(".bg-1")
-        const cboxBG2 = document.querySelector(".bg-2")
-        const cboxBG3 = document.querySelector(".bg-3")
+
+        var sound
 
         setTimeout(()=>{ 
                 cboxBG3.style.opacity="0"
@@ -269,8 +280,7 @@
                             setTimeout(()=>{ 
                                 quote4.style.opacity="1"
                                 setTimeout(()=>{ click2.style.opacity="1" }, 1000)
-
-                                var sound = new Howl({ src: ['audio/riff.mp3'], loop: true, html5: true, autoplay: true })
+                                sound = new Howl({ src: ['audio/riff.mp3'], loop: true, html5: true, autoplay: true })
                             }, 1000) 
                         }, 1000) 
                 }, 1000) 
@@ -278,6 +288,7 @@
 
     //Define chocolate action with sound manipulation
     var notplayed=true
+    var soundFull = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, html5: true, autoplay: false })
     
     listItems.forEach(item => {
         var url = item.firstElementChild.src
@@ -289,8 +300,6 @@
         item.addEventListener('click', el => {
             clickount++
             console.log(clickount)
-
-            var soundFull = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, html5: true, autoplay: false })
 
             if (notplayed) {
                 setTimeout(() => { sound.stop() }, 1000)
@@ -324,17 +333,20 @@
         container.style.filter="blur(0)"
         chocoIntro.style.display="none"
 
+        
         if (clickount==2)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png)"; container.style.backgroundPosition="0 center, bottom right"; }
         if (clickount==6)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left"; }
         if (clickount==11)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png), url(img/choc-crumbs-top-right.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left, top right"; }
-        if (clickount==12) { 
+        if (clickount==1) { 
             setTimeout(() => { 
                 console.log('There goes the last chocolate!')
                 outtro.showModal()
                 setTimeout(() => { 
                     scontent.style.animationPlayState="running"
-                    scontent.style.opacity="1"
                 }, 10)
+                const outtroBG = document.querySelector(":root")
+                console.log(outtroBG)
+                outtroBG.style.setProperty('--bg-color', 'rgba(0,0,0,.8)');
             }, 1500)
         }
     })
