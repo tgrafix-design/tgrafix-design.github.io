@@ -22,37 +22,16 @@
 </head>
 <body>
 <style>
-    .loader {
-        width: 300px;
-        height: 20px;
-        border-radius: 20px;
-        background:
-        linear-gradient(#633424 0 0) 0/0% no-repeat #cccccc;
-        animation: l2 2s forwards steps(10);
-    }
-    @keyframes l2 {
-        100% {background-size:110%}
-    }
-    .topdrop {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f6eddb;
-        transition: opacity 0.5s ease-in-out;
-        opacity: 1;
-        width: 100%;
-        height: 100vh;
-        cursor: pointer;
-        pointer-events: none;
-        text-align: center;
-        top: 0;
-    }
+    body { margin:0; padding: 0;}
+    .loader { width: 300px;  height: 20px; border-radius: 20px; background: linear-gradient(#633424 0 0) 0/0% no-repeat #cccccc; animation: load2 2s forwards steps(10); }
+    @keyframes load2 { 100% {background-size:110%} }
+    .topdrop { position: absolute; display: flex; align-items: center; font-size:12px; font-family: 'GothamRounded'; justify-content: center; background: #f6eddb url(img/introTitle.png) no-repeat top center;
+        transition: opacity 0.5s ease-in-out; opacity: 1; width: 100%; height: 100vh; cursor: pointer; pointer-events: none; text-align: center; top: 0; }
     .load-wrapper { transition: opacity 1s linear; }
     .content { position: relative; width: 430px; height:390px; }
     .topdrop, .quote-1, .quote-2, .quote-3,  .quote-4, .click-1, .click-2 { transition: opacity 2s linear;  }
-    .quote-1, .quote-2, .quote-3, .quote-4 { position: absolute; left:0; }
-    .click-1, .click-2 { position: absolute; right:36px; bottom: 0; opacity: 0; }
+    .quote-1, .quote-2, .quote-3, .quote-4 { position: absolute; right:0; width: 80%; }
+    .click-1, .click-2 { position: absolute; right:0; bottom: 0; opacity: 0; }
     .click-2 { bottom: 90px; }
     .quote-1, .quote-2, .quote-3 { background-color: #f6eddc; }
     .quote-4 { opacity: 0; }
@@ -97,26 +76,28 @@
     <div class="choco-intro"><div class="intro"></div></div>
     
     <div class="topdrop"><div class="load-wrapper"><div class="loader"></div><p class="loadtext"><img class="loadertext" src="img/loading.png" alt="">
-    <br /><br /><em>*Best viewed in Desktop Chrome with audio on</em></p></div></div>
+    <span style="display: block; margin-top: 140px;">© 2025 J Tuquib. All rights reserved.</span></p></div></div>
+    <div class="cover-closing"></div>
 
     <dialog id="iframeDialog" class="wrapper">
-        <iframe src="" title="description"></iframe>
+        <iframe title="description" id="myframe"></iframe>
         <div class="close-btn"><img src="img/close.png" alt=""></div>
     </dialog>
 
-<dialog class="ender">
+<dialog id="dialogEnder" class="ender">
     <div id="outtro">
         <div class="scontent">
-            <h2 style="margin-top:200px; margin-bottom: 360px;">Kalas - The End</h2>
+            <h2 style="margin-top:200px; margin-bottom: 360px; line-height: 1.5;">Kalas - The End</h2>
             <p><strong>About the App</strong></p>
-            <p style="margin-bottom: 360px;">The Chocolate Box was designed and developed by the author to give the user a fun, smooth, frustration-free and exciting way to view the awesome images taken by a 360° camera.<br /><br />Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices, this challenged the author to develop this viewer.<br /><br />Now you can spin, zoom, and explore every angle of 360° shots anytime with this app.<br /><br />
+            <p style="margin-bottom: 360px; font-size:11px; font-weight: 100;">The Chocolate Box was designed and developed by the author to give the user a fun, smooth, frustration-free and exciting way to view the awesome images taken by a 360° camera.<br /><br />Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices, this challenged the author to develop this viewer.<br /><br />Now you can spin, zoom, and explore every angle of 360° shots anytime with this app.<br /><br />
             For other developers, this is a demonstration of Javascript image manipulation using CubeMap and audio control.</p>
 
             <p><strong>About the Author</strong></p>
-            <p style="margin-bottom: 360px;"><strong>Joseph Tuquib</strong> <br />
-                <em>&bull; Graphic & Web Design Trainor<br />
+            <p style="margin-bottom: 360px; font-size: 11px; font-weight: 100; list-style: 1.5;"><strong>Joseph Tuquib</strong> <br />
+                <em>&bull; Fullstack Web Engineer<br />
                     &bull; Art Director<br />
-                    &bull; Fullstack Web Engineer<br /><br />
+                    &bull; Graphic & Web Design Trainor<br /><br />
+                    
                     <strong>Other works</strong><br />
             https://tgrafix-design.github.io/<br />
             https://tripcompanion-ph.github.io/<br />
@@ -124,13 +105,13 @@
             https://tgrafix-design.github.io/code-janitor/</em></p>
 
             <a class="credit-button" href="https://tgrafix-design.github.io/box-of-chocolates/index.html">Watch Again?</a>
-            <p style="margin-bottom: 400px;">© 2025 J Tuquib. All rights reserved.</p>
+            <p style="margin-bottom: 400px; font-size: 11px; font-weight: 100;">© 2025 J Tuquib. All rights reserved.</p>
         </div>
     </div>
 </dialog>
 
 <style>
-    body { margin:0; padding: 0;}
+    .cover-closing { pointer-events:none; top:0; position: absolute; width:100%; height:100vh; background-color: rgba(0,0,0,.8); opacity: 0; transition: opacity 2s ease-in; }
     .closebox { width: 100%; display:block; }
     .container { position: relative; display: flex;  height: 100vh; width: 100vw; justify-content: center; align-items: center;
         background-color:#f6eddc; min-width:1100px; transition: background-position .5s cubic-bezier(0.68, -0.55, 0.265, 1.55), filter ease-out 2s; 
@@ -145,8 +126,7 @@
     .close-btn:hover, .navigator li:hover { cursor: pointer; }
 
     .nav-wrapper { max-width:430px; width: 100%; aspect-ratio: 1 / 1; pointer-events: none; translate: 1000px;
-        transform: rotate(180deg); transition: translate 2s ease-out, transform 2s ease-in-out; 
-        /* background-image: url(img/bg-closebox.png); */ background-repeat: no-repeat; background-position: center; background-size: cover;  
+        transform: rotate(180deg); transition: translate 2s ease-out, transform 2s ease-in-out; background-repeat: no-repeat; background-position: center; background-size: cover;  
         display: flex; justify-content: center; justify-items: center;  }
     .bg-images { display: block; cursor: pointer; margin-top: -120px; }
     .bg-images img { position: absolute; max-width:430px; width: 100%; background-color: #f6eddc; transition: opacity 1s ease-in-out;  }
@@ -158,12 +138,10 @@
     .choco-intro { position: absolute; display: none; top:0; left:0; height: 100vh; width: 100vw;  min-width:1100px; }
     .intro { width: 500px; height: 533px; position: relative; animation: playh 1s steps(5) forwards; 
         margin-left:46%; transform: translateY(25%); }
-:root {
-     --bg-color: rgba(0,0,0,.8)
-}
-    dialog.ender { height: 348px; padding: 24px; border-radius: 8px; width: 50%; max-width: 400px; overflow: hidden; 
+
+    dialog.ender { height: 348px; padding: 24px; width: 50%; max-width: 400px; overflow: hidden; 
         box-shadow: none; background-color:transparent; border:1px solid rgba(255, 255, 255, .1); }
-    dialog.ender::backdrop { background-color: var(--bg-color); backdrop-filter: blur(5px); transition: background-color 1s ease-in; }
+    dialog.ender::backdrop { background-color: rgba(0,0,0,0); backdrop-filter: blur(5px); transition: background-color 1s ease-in; }
     #outtro { position: relative; font-size: 14px; font-family: 'GothamRounded'; line-height: 1.5; height: 348px; 
     color: #ffffff; background: transparent; 
     box-shadow: none;  overflow: hidden; }  
@@ -172,7 +150,7 @@
     .scontent { position: absolute; width: 100%; bottom:0; 
                 animation: scrollUp 80s linear forwards; animation-delay: 2s; animation-play-state: paused; }
 
-    @keyframes scrollUp { 0% { top:0; } 100% { top:-1900px; } }
+    @keyframes scrollUp { 0% { top:0; } 100% { top:-1700px; } }
     @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
     .credit-button { width: 120px; display: block; padding: 6px 30px; background: #fff; color: #000000; margin-bottom: 40px; 
             text-decoration: none; font-weight:700; border-radius: 16px; }
@@ -193,6 +171,7 @@
     const container = document.querySelector(".container")
     const iframe = document.querySelector("iframe")
     const iframeDialog = document.querySelector("#iframeDialog")
+    const dialogEnder = document.querySelector("#dialogEnder")
     const close = document.querySelector(".close-btn")
     const choc1 = document.querySelector(".navigator ul li:nth-child(1)")
     const navWrapper = document.querySelector(".nav-wrapper")
@@ -215,6 +194,9 @@
     const cboxBG3 = document.querySelector(".bg-3")
     const cboxBG4 = document.querySelector(".bg-4")
 
+    var sound
+    var windSound
+
     if (document.readyState === "complete" || document.readyState === "interactive") {
         console.log('Complete!')
     } else {
@@ -223,6 +205,7 @@
         setTimeout(()=>{
             loadertext.src="img/loaded.png"
             setTimeout(()=>{
+                windSound = new Howl({ src: ['audio/wind.mp3'], loop: true, html5: true, autoplay: true })
                 loadWrapper.style.opacity="0"
                 navWrapper.style.translate="0"
                 navWrapper.style.transform="rotate(0)"
@@ -255,8 +238,6 @@
         console.log('Box Close Intro Clicked!')
         container.style.backgroundPosition="400px center"
 
-        var sound
-
         setTimeout(()=>{ 
                 cboxBG3.style.opacity="0"
                 setTimeout(()=>{  
@@ -280,6 +261,7 @@
                             setTimeout(()=>{ 
                                 quote4.style.opacity="1"
                                 setTimeout(()=>{ click2.style.opacity="1" }, 1000)
+                                windSound.stop()
                                 sound = new Howl({ src: ['audio/riff.mp3'], loop: true, html5: true, autoplay: true })
                             }, 1000) 
                         }, 1000) 
@@ -296,11 +278,8 @@
         bgname = bgname.slice(0, -1) + ".png"
         console.log(bgname)
         item.style.backgroundImage=`url(img/choco/${bgname})`
-        
-        item.addEventListener('click', el => {
-            clickount++
-            console.log(clickount)
 
+        item.addEventListener('click', el => {
             if (notplayed) {
                 setTimeout(() => { sound.stop() }, 1000)
                 soundFull.play()
@@ -322,31 +301,32 @@
         })
     })
 
-
     }, {once: true})  
 //end the intro Box ------------------------>
-
     close.addEventListener('click', () => {
+        clickount++
+        console.log(clickount)
+
         iframeDialog.style.width="5%"
         iframeDialog.style.height="5%"
+        dialogEnder.style.borderRadius="0"
         iframeDialog.close()
         container.style.filter="blur(0)"
         chocoIntro.style.display="none"
 
-        
         if (clickount==2)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png)"; container.style.backgroundPosition="0 center, bottom right"; }
         if (clickount==6)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left"; }
         if (clickount==11)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png), url(img/choc-crumbs-top-right.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left, top right"; }
         if (clickount==12) { 
+            const closingBG = document.querySelector(".cover-closing")
             setTimeout(() => { 
                 console.log('There goes the last chocolate!')
                 outtro.showModal()
+                    closingBG.style.display="block"
+                    closingBG.style.opacity="1"
                 setTimeout(() => { 
                     scontent.style.animationPlayState="running"
                 }, 10)
-                const outtroBG = document.querySelector(":root")
-                console.log(outtroBG)
-                outtroBG.style.setProperty('--bg-color', 'rgba(0,0,0,.8)');
             }, 1500)
         }
     })
@@ -368,6 +348,4 @@
 </script>
 
 </body>
-
 </html>
-
