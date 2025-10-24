@@ -139,7 +139,7 @@
     .intro { width: 500px; height: 533px; position: relative; animation: playh 1s steps(5) forwards; 
         margin-left:46%; transform: translateY(25%); }
 
-    dialog.ender { height: 348px; padding: 24px; width: 50%; max-width: 400px; overflow: hidden; 
+    dialog.ender { height: 348px; padding: 24px; width: 320px; max-width: 400px; overflow: hidden; margin-left: 52%;
         box-shadow: none; background-color:rgba(0, 0, 0, .25); border:1px dotted rgba(255, 255, 255, .25); }
     dialog.ender::backdrop { background-color: rgba(0,0,0,0); backdrop-filter: blur(5px); transition: background-color 1s ease-in; }
     #outtro { position: relative; font-size: 14px; font-family: 'GothamRounded'; line-height: 1.5; height: 348px; 
@@ -196,6 +196,7 @@
 
     var sound
     var windSound
+    var fullSound
 
     if (document.readyState === "complete" || document.readyState === "interactive") {
         console.log('Complete!')
@@ -271,7 +272,7 @@
 
     //Define chocolate action with sound manipulation
     var notplayed=true
-    var soundFull = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, autoplay: false })
+    fullSound = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, autoplay: false })
     
     listItems.forEach(item => {
         var url = item.firstElementChild.src
@@ -283,7 +284,7 @@
         item.addEventListener('click', el => {
             if (notplayed) {
                 setTimeout(() => { sound.stop(); sound.unload() }, 1000)
-                soundFull.play()
+                fullSound.play()
                 notplayed=false
             }
 
@@ -328,6 +329,16 @@
                 setTimeout(() => { 
                     scontent.style.animationPlayState="running"
                 }, 10)
+                const curPos = fullSound.seek();
+                const soundLen = fullSound.duration();
+                const playPercent = (curPos / soundLen) * 100;
+
+                console.log(playPercent)
+                if (playPercent.toFixed(2)<85) { fullSound.loop(false); } else {
+                    setTimeout(() => { 
+                        fullSound.loop(false);
+                    }, 600000)
+                }
             }, 2000)
         }
     })
