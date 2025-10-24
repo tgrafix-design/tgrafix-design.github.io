@@ -205,7 +205,7 @@
         setTimeout(()=>{
             loadertext.src="img/loaded.png"
             setTimeout(()=>{
-                windSound = new Howl({ src: ['audio/wind.mp3'], loop: true, html5: true, autoplay: true })
+                windSound = new Howl({ src: ['audio/wind.mp3'], loop: true, autoplay: true })
                 loadWrapper.style.opacity="0"
                 navWrapper.style.translate="0"
                 navWrapper.style.transform="rotate(0)"
@@ -262,7 +262,8 @@
                                 quote4.style.opacity="1"
                                 setTimeout(()=>{ click2.style.opacity="1" }, 1000)
                                 windSound.stop()
-                                sound = new Howl({ src: ['audio/riff.mp3'], loop: true, html5: true, autoplay: true })
+                                windSound.unload()
+                                sound = new Howl({ src: ['audio/riff.mp3'], loop: true, autoplay: true })
                             }, 1000) 
                         }, 1000) 
                 }, 1000) 
@@ -270,7 +271,7 @@
 
     //Define chocolate action with sound manipulation
     var notplayed=true
-    var soundFull = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, html5: true, autoplay: false })
+    var soundFull = new Howl({ src: ['audio/fulltrack.mp3'], loop: true, autoplay: false })
     
     listItems.forEach(item => {
         var url = item.firstElementChild.src
@@ -281,7 +282,7 @@
 
         item.addEventListener('click', el => {
             if (notplayed) {
-                setTimeout(() => { sound.stop() }, 1000)
+                setTimeout(() => { sound.stop(); sound.unload() }, 1000)
                 soundFull.play()
                 notplayed=false
             }
