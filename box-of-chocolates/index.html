@@ -163,7 +163,7 @@
 
     #outtro strong { font-size: larger; }
     .scontent { position: absolute; width: 100%; bottom:0; opacity: .8;
-                animation: scrollUp 8s linear forwards; animation-delay: 2s; animation-play-state: paused; }
+                animation: scrollUp 80s linear forwards; animation-delay: 2s; animation-play-state: paused; }
 
     @keyframes scrollUp { 0% { top:0; } 100% { top:-1700px; } }
     @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
@@ -334,7 +334,7 @@
         if (clickount==2)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png)"; container.style.backgroundPosition="0 center, bottom right"; }
         if (clickount==6)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left"; }
         if (clickount==11)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png), url(img/choc-crumbs-top-right.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left, top right"; }
-        if (clickount==1) { 
+        if (clickount==12) { 
             const closingBG = document.querySelector(".cover-closing")
             setTimeout(() => { 
                 console.log('There goes the last chocolate!')
