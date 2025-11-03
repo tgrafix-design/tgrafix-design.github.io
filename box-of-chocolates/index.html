@@ -102,8 +102,8 @@
         <div class="scontent">
             <h2 style="margin-top:200px; margin-bottom: 360px; ">Kalas - The End</h2>
             <p>About the App</p>
-            <p style="margin-bottom: 360px; font-size:12px; font-weight: 100; list-style: 1.5;">The Chocolate Box is an app designed and developed by the author to give the user a fun, smooth, frustration-free and exciting way to view the awesome images taken by a 360° camera.<br /><br />Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices, this challenged the author to develop this viewer.<br /><br />Now you can spin, zoom, and explore every angle of 360° shots anytime with this app.<br /><br />
-            For other developers, this is a demonstration of Javascript image manipulation using CubeMap and audio control.</p>
+            <p style="margin-bottom: 360px; font-size:12px; font-weight: 100; list-style: 1.5;">The Chocolate Box is an app designed and developed by the author to give the user a fun, smooth, frustration-free and exciting way to view the awesome images taken by a 360° camera.<br /><br />Since Facebook decided to be a bit picky and only display 360° content correctly on certain devices and operating systems, this challenged the author to develop this viewer.<br /><br />Now you can spin, zoom, and explore every angle of 360° shots anytime with this app.<br /><br />
+            For other developers, this is a demonstration of Vanilla JS image manipulation using CubeMap, Audio Control, Sprite Animation and many more.</p>
 
             <p>About the Author</p>
             <p style="margin-bottom: 360px; font-size: 12px; font-weight: 100; list-style: 1.5;"><strong>Joseph Tuquib</strong> <br />
@@ -117,7 +117,9 @@
             https://tgrafix-design.github.io/aerobics/<br />
             https://tgrafix-design.github.io/code-janitor/</em></p>
 
-            <a class="credit-button" href="https://tgrafix-design.github.io/box-of-chocolates/index.html">Watch Again?</a>
+            <a class="credit-button" href="https://tgrafix-design.github.io/box-of-chocolates/index.html">Watch Again&nbsp;
+                <img src="img/refresh-icon.png" style="width:20px; vertical-align: bottom; ">
+            </a>
             <p style="margin-bottom: 400px; font-size: 11px; font-weight: 100;">© 2025 J Tuquib. All rights reserved.</p>
         </div>
     </div>
@@ -161,11 +163,11 @@
 
     #outtro strong { font-size: larger; }
     .scontent { position: absolute; width: 100%; bottom:0; opacity: .8;
-                animation: scrollUp 80s linear forwards; animation-delay: 2s; animation-play-state: paused; }
+                animation: scrollUp 8s linear forwards; animation-delay: 2s; animation-play-state: paused; }
 
     @keyframes scrollUp { 0% { top:0; } 100% { top:-1700px; } }
     @keyframes playh { 0% { background-position-x:   0px; } 100% { background-position-x: 100%; } }
-    .credit-button { width: 120px; display: block; padding: 6px 30px; background: #fff; color: #000000; margin-bottom: 40px; 
+    .credit-button { width: 124px; display: block; padding: 6px 30px; background: #fff; color: #000000; margin-bottom: 40px; 
             text-decoration: none; font-weight:700; border-radius: 16px; }
     .bg-4 { opacity:0; }
 </style>
@@ -332,7 +334,7 @@
         if (clickount==2)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png)"; container.style.backgroundPosition="0 center, bottom right"; }
         if (clickount==6)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left"; }
         if (clickount==11)  { container.style.backgroundImage="url(img/chover.png), url(img/choc-crumbs-bottom-right.png), url(img/choc-crumbs-bottom-left.png), url(img/choc-crumbs-top-right.png)"; container.style.backgroundPosition="0 center, bottom right, bottom left, top right"; }
-        if (clickount==12) { 
+        if (clickount==1) { 
             const closingBG = document.querySelector(".cover-closing")
             setTimeout(() => { 
                 console.log('There goes the last chocolate!')
